@@ -195,14 +195,15 @@ def do_checks():
                         values, ips = check_func(check.host, query, list(), list())
                         result.values = ','.join(values)
                         result.ips = ','.join(ips)
+                        check_hash.update(bytes(result.value + result.ips, encoding='utf-8'))
                     except KeyError:
                         pass
 
                 except dns.exception.DNSException as dns_error:
                     result.value = dns_error.msg
                     check_hash.update(bytes(result.value, encoding='utf-8'))
-                    result.hash = check_hash.hexdigest()
-
+                    
+                result.hash = check_hash.hexdigest()
                 orm.commit()
 
 
