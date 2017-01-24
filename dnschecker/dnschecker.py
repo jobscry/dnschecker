@@ -168,6 +168,18 @@ def delete_check(check_id):
 
 
 @cli.command()
+@click.argument('check_id', type=click.INT)
+@orm.db_session
+def clear_check_results(check_id):
+    '''Clear results from check identified by check_id'''
+    try:
+        Check[check_id]
+        orm.delete(result for result in Result if result.check.obj_id == check_id)
+    except orm.core.ObjectNotFound:
+        click.echo('No check with that ID')
+
+
+@cli.command()
 @orm.db_session
 def do_checks():
     '''Do Check
