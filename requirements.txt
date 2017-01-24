@@ -1,0 +1,5 @@
+click==6.7
+dnspython==1.15.0
+pony==0.7.1
+requests==2.12.5
+SPF2IP==1.0.3
