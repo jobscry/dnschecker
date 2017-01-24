@@ -178,7 +178,7 @@ def do_checks():
 
         for check_choice in CHECK_CHOICES:
 
-            if check_choice in DNS_CHECKS:
+            if check_choice in DNS_CHECKS and getattr(check, check_choice, False):
 
                 result = Result(
                     check=check,
